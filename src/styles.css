@@ -1,0 +1,384 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Clean Theme (default)
+ */
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #6366f1;
+  --radius: 0.75rem;
+  --chart-1: #6366f1;
+  --chart-2: #8b5cf6;
+  --chart-3: #06b6d4;
+  --chart-4: #10b981;
+  --chart-5: #f59e0b;
+
+  /* Brutal-specific vars (unused in clean) */
+  --brutal-shadow: none;
+  --brutal-border: 0px;
+  --brutal-offset-x: 0px;
+  --brutal-offset-y: 0px;
+}
+
+/*
+ * Neobrutalism Theme — Fun & High Contrast
+ */
+
+:root.brutal {
+  --background: #e0f7fa;
+  --foreground: #1a1a1a;
+  --card: #fffde7;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #ff2d78;
+  --primary-foreground: #ffffff;
+  --secondary: #c6ff00;
+  --secondary-foreground: #1a1a1a;
+  --muted: #b2ebf2;
+  --muted-foreground: #37474f;
+  --accent: #fff176;
+  --accent-foreground: #1a1a1a;
+  --destructive: #d50000;
+  --destructive-foreground: #ffffff;
+  --border: #1a1a1a;
+  --input: #1a1a1a;
+  --ring: #ff2d78;
+  --radius: 0px;
+  --chart-1: #ff2d78;
+  --chart-2: #c6ff00;
+  --chart-3: #00e5ff;
+  --chart-4: #651fff;
+  --chart-5: #ff9100;
+
+  --brutal-shadow: 5px 5px 0 #1a1a1a;
+  --brutal-border: 3px;
+  --brutal-offset-x: 5px;
+  --brutal-offset-y: 5px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+ * Neobrutalism global overrides
+ * Fun, loud, high-contrast transforms
+ */
+
+/* --- Border radius → 0 (keep avatars round) --- */
+.brutal .rounded-xl,
+.brutal .rounded-2xl,
+.brutal .rounded-lg,
+.brutal .rounded-md {
+  border-radius: 0 !important;
+}
+
+.brutal .rounded-full {
+  border-radius: 9999px !important;
+}
+
+/* --- Cards: thick border + hard shadow + colorful backgrounds --- */
+.brutal [class*="border-border"][class*="bg-card"],
+.brutal [class*="border-border"][class*="shadow"] {
+  border-width: 3px !important;
+  border-color: #1a1a1a !important;
+  box-shadow: 5px 5px 0 #1a1a1a !important;
+}
+
+/* Alternate card colors for visual variety */
+.brutal [class*="bg-card"]:nth-child(4n+1) {
+  background-color: #fffde7 !important; /* warm yellow */
+}
+.brutal [class*="bg-card"]:nth-child(4n+2) {
+  background-color: #f3e5f5 !important; /* light purple */
+}
+.brutal [class*="bg-card"]:nth-child(4n+3) {
+  background-color: #e8f5e9 !important; /* light green */
+}
+.brutal [class*="bg-card"]:nth-child(4n+4) {
+  background-color: #e3f2fd !important; /* light blue */
+}
+
+/* Hero / large shadows */
+.brutal [class*="shadow-2xl"],
+.brutal [class*="shadow-lg"] {
+  box-shadow: 8px 8px 0 #1a1a1a !important;
+}
+
+/* Ring borders → solid black + hard shadow */
+.brutal [class*="ring-1"],
+.brutal [class*="ring-2"] {
+  --tw-ring-offset-width: 0px;
+  --tw-ring-color: #1a1a1a;
+  box-shadow: 0 0 0 3px #1a1a1a, 5px 5px 0 #1a1a1a !important;
+}
+
+/* --- Primary Buttons: hot pink with hard shadow --- */
+.brutal .bg-primary {
+  border-radius: 0 !important;
+  border: 3px solid #1a1a1a !important;
+  box-shadow: 4px 4px 0 #1a1a1a !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  transition: transform 0.1s, box-shadow 0.1s !important;
+}
+
+.brutal .bg-primary:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 #1a1a1a !important;
+  background-color: #ff5ca1 !important;
+}
+
+.brutal .bg-primary:active {
+  transform: translate(3px, 3px) !important;
+  box-shadow: 1px 1px 0 #1a1a1a !important;
+}
+
+/* --- Secondary / outline buttons: lime green fill --- */
+.brutal button[class*="border-border"],
+.brutal a[class*="border-border"][class*="bg-background"] {
+  border-radius: 0 !important;
+  border-width: 3px !important;
+  border-color: #1a1a1a !important;
+  box-shadow: 4px 4px 0 #1a1a1a !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  background-color: #c6ff00 !important;
+  color: #1a1a1a !important;
+  transition: transform 0.1s, box-shadow 0.1s !important;
+}
+
+.brutal button[class*="border-border"]:hover,
+.brutal a[class*="border-border"][class*="bg-background"]:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 #1a1a1a !important;
+  background-color: #d4ff33 !important;
+}
+
+.brutal button[class*="border-border"]:active,
+.brutal a[class*="border-border"][class*="bg-background"]:active {
+  transform: translate(3px, 3px) !important;
+  box-shadow: 1px 1px 0 #1a1a1a !important;
+}
+
+/* --- Inputs: white with thick border + shadow --- */
+.brutal input[type="email"],
+.brutal input[type="text"],
+.brutal input[type="search"] {
+  border-radius: 0 !important;
+  border-width: 3px !important;
+  border-color: #1a1a1a !important;
+  box-shadow: 4px 4px 0 #1a1a1a !important;
+  background: #ffffff !important;
+}
+
+.brutal input:focus {
+  box-shadow: 4px 4px 0 #1a1a1a !important;
+  outline: 3px solid #ff2d78 !important;
+  outline-offset: 0 !important;
+}
+
+/* --- Header: solid background, thick bottom border --- */
+.brutal header {
+  backdrop-filter: none !important;
+  background: #c6ff00 !important;
+  border-bottom-width: 3px !important;
+  border-color: #1a1a1a !important;
+}
+
+/* --- Footer: vivid background --- */
+.brutal footer {
+  border-top-width: 3px !important;
+  border-color: #1a1a1a !important;
+  background: #fffde7 !important;
+}
+
+/* --- Banner: hot pink with thick border --- */
+.brutal .bg-primary[class*="text-center"] {
+  border-bottom: 3px solid #1a1a1a !important;
+}
+
+/* --- FAQ accordion --- */
+.brutal [class*="divide-border"][class*="border-border"] {
+  border-width: 3px !important;
+  border-color: #1a1a1a !important;
+  border-radius: 0 !important;
+  box-shadow: 5px 5px 0 #1a1a1a !important;
+}
+
+.brutal [class*="divide-border"] > div {
+  border-color: #1a1a1a !important;
+}
+
+/* --- Images: no border-radius, thick bottom border --- */
+.brutal [class*="overflow-hidden"][class*="rounded"] {
+  border-radius: 0 !important;
+}
+
+.brutal .aspect-\[16\/9\] {
+  border-bottom: 3px solid #1a1a1a;
+}
+
+/* --- Remove backdrop blur --- */
+.brutal .backdrop-blur-lg,
+.brutal .backdrop-blur-md,
+.brutal .backdrop-blur-sm {
+  backdrop-filter: none !important;
+}
+
+/* --- Remove subtle gradients --- */
+.brutal [class*="bg-gradient-to"] {
+  background-image: none !important;
+}
+
+.brutal [class*="bg-\[radial-gradient"] {
+  background-image: none !important;
+}
+
+/* --- Typography: bolder, tighter --- */
+.brutal h1,
+.brutal h2,
+.brutal h3 {
+  letter-spacing: -0.03em;
+}
+
+.brutal h1 {
+  font-weight: 900 !important;
+}
+
+.brutal h2 {
+  font-weight: 800 !important;
+}
+
+/* --- Article card hover: lift + bigger shadow --- */
+.brutal .group:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 #1a1a1a !important;
+}
+
+.brutal .group {
+  transition: transform 0.15s, box-shadow 0.15s !important;
+}
+
+/* --- Section headings: underline decoration --- */
+.brutal section h2 {
+  display: inline;
+  background-image: linear-gradient(transparent 60%, #fff176 60%) !important;
+  background-size: 100% 100%;
+  padding: 0 4px;
+}
+
+/* --- Newsletter section: fun bg --- */
+.brutal [class*="bg-muted"] {
+  background-color: #f3e5f5 !important;
+}
+
+/* --- Person card / testimonial: rotated accent --- */
+.brutal blockquote,
+.brutal [class*="text-6xl"][class*="text-primary"] {
+  color: #ff2d78 !important;
+}
+
+/* --- Tags / badges: colorful pills --- */
+.brutal [class*="bg-primary\/10"] {
+  background-color: #00e5ff !important;
+  color: #1a1a1a !important;
+  border: 2px solid #1a1a1a !important;
+  border-radius: 0 !important;
+  font-weight: 700 !important;
+}
+
+/* --- Smooth theme transition --- */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.brutal body {
+  font-weight: 500;
+}
+
+/* --- Fun sticker-like rotation on card hover --- */
+.brutal .group:nth-child(even):hover {
+  transform: translate(-3px, -3px) rotate(-1deg);
+}
+
+.brutal .group:nth-child(odd):hover {
+  transform: translate(-3px, -3px) rotate(1deg);
+}
